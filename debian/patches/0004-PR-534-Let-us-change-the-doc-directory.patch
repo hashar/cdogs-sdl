@@ -1,0 +1,42 @@
+From: Antoine Musso <hashar@free.fr>
+Date: Tue, 28 Nov 2017 16:10:24 +0100
+Subject: [PR-534] Let us change the doc directory
+
+Add support for overriding where documentation get installed via the
+CMake variable CDOGS_DOC_DIR. The reason is Debian policy expects
+documentation under /usr/share/doc/<packagename/.
+
+https://github.com/cxong/cdogs-sdl/pull/534
+
+Signed-off-by: Antoine Musso <hashar@free.fr>
+---
+ CMakeLists.txt | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0cdbc5b..09404b6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -212,7 +212,6 @@ if(NOT "${GCW0}")
+ endif()
+ 
+ INSTALL(DIRECTORY
+-	${CMAKE_SOURCE_DIR}/doc
+ 	${CMAKE_SOURCE_DIR}/data
+ 	${CMAKE_SOURCE_DIR}/missions
+ 	${CMAKE_SOURCE_DIR}/dogfights
+@@ -220,6 +219,14 @@ INSTALL(DIRECTORY
+ 	${CMAKE_SOURCE_DIR}/music
+ 	${CMAKE_SOURCE_DIR}/sounds
+ 	DESTINATION ${DATA_INSTALL_DIR})
++
++if(NOT DEFINED CDOGS_DOC_DIR)
++	set(CDOGS_DOC_DIR "${DATA_INSTALL_DIR}")
++endif()
++
++INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/doc/
++	DESTINATION ${CDOGS_DOC_DIR})
++
+ INSTALL(FILES
+ 	${CMAKE_SOURCE_DIR}/README.md
+ 	DESTINATION ${DATA_INSTALL_DIR})

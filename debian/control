@@ -1,0 +1,28 @@
+Source: cdogs-sdl
+Section: games
+Priority: optional
+Maintainer: Antoine Musso <hashar@free.fr>
+Build-Depends: debhelper (>= 9),
+               cmake,
+               libsdl2-dev,
+               libsdl2-image-dev,
+               libsdl2-mixer-dev
+Standards-Version: 3.9.8
+Homepage: https://cxong.github.io/cdogs-sdl/
+Vcs-Git: https://github.com/cxong/cdogs-sdl/
+Vcs-Browser: https://github.com/cxong/cdogs-sdl/
+
+Package: cdogs-sdl
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Overhead run-and-gun game
+ C-Dogs SDL is a classic overhead run-and-gun game, supporting up to 4 players
+ in co-op and deathmatch modes. Customize your player, choose from many
+ weapons, and blast, slide and slash your way through over 100 user-created
+ campaigns.
+ .
+ C-Dogs is a freeware DOS game made between 1997-2001 by Ronny Wester, who's
+ also known for making Cyberdogs (1994). Although relatively obscure, it was
+ one of the more well-known games of its kind, and built a small following with
+ many fans creating custom campaigns for it. Players loved it for its simple
+ yet addictive gameplay and wicked explosions.

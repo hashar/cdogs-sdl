@@ -1,0 +1,42 @@
+From: Antoine Musso <hashar@free.fr>
+Date: Mon, 27 Nov 2017 23:13:46 +0100
+Subject: [PR-533] Let us change binary directory
+
+Add support for overriding where binaries get installed via the CMake
+variable CDOGS_BIN_DIR. The reason is Debian policy 11.11 (Games)
+requires to get them under /usr/games.
+
+https://github.com/cxong/cdogs-sdl/pull/533
+Signed-off-by: Antoine Musso <hashar@free.fr>
+---
+ CMakeLists.txt | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f9f5c4c..0cdbc5b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -194,15 +194,21 @@ elseif(APPLE)
+ else()
+ 	set(LIB_EXTENSION ".so")
+ endif()
++
++# Since Debian wants games binaries in /usr/games
++if(NOT DEFINED CDOGS_BIN_DIR)
++	set(CDOGS_BIN_DIR "${INSTALL_PREFIX}/bin")
++endif()
++
+ install(
+   PROGRAMS
+     ${CMAKE_CURRENT_BINARY_DIR}/src/cdogs-sdl${EXE_EXTENSION}
+-  DESTINATION ${INSTALL_PREFIX}/bin)
++  DESTINATION ${CDOGS_BIN_DIR})
+ if(NOT "${GCW0}")
+ 	install(
+ 	  PROGRAMS
+ 	    ${CMAKE_CURRENT_BINARY_DIR}/src/cdogs-sdl-editor${EXE_EXTENSION}
+-	  DESTINATION ${INSTALL_PREFIX}/bin)
++	DESTINATION ${CDOGS_BIN_DIR})
+ endif()
+ 
+ INSTALL(DIRECTORY

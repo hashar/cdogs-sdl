@@ -1,0 +1,30 @@
+From: Antoine Musso <hashar@free.fr>
+Date: Mon, 27 Nov 2017 23:12:52 +0100
+Subject: [PR-531] Rename icon when installing them
+
+The DESTINATION parameter of INSTALL is a target directory, hence the
+icons ends up in a subdirectory:
+/usr/share/icons/hicolor/32x32/apps/cdogs-sdl.png/cdogs-icon.32.png
+
+Change DESTINATION to the parent directory and rename the icon
+cdogs-sdl.png.
+
+https://github.com/cxong/cdogs-sdl/pull/531
+---
+ CMakeLists.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6883b2f..f9f5c4c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -222,7 +222,8 @@ IF(UNIX AND NOT APPLE AND NOT BEOS AND NOT HAIKU)
+ 	INSTALL(FILES ${CMAKE_SOURCE_DIR}/build/linux/cdogs-sdl.appdata.xml DESTINATION ${INSTALL_PREFIX}/share/appdata)
+ 	foreach(RES 16 22 32 48 128)
+ 		INSTALL(FILES ${CMAKE_SOURCE_DIR}/build/linux/cdogs-icon.${RES}.png
+-			DESTINATION ${INSTALL_PREFIX}/share/icons/hicolor/${RES}x${RES}/apps/cdogs-sdl.png)
++			DESTINATION ${INSTALL_PREFIX}/share/icons/hicolor/${RES}x${RES}/apps
++			RENAME cdogs-sdl.png)
+ 	endforeach(RES)
+ elseif(WIN32)
+ 	# Package for Windows
